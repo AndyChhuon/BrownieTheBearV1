@@ -23,7 +23,7 @@
 
 
 		<script type="module">
-
+            
       import * as THREE from './three.js/build/three.module.js';
       import { OrbitControls } from './three.js/examples/jsm/controls/OrbitControls.js'
       import { FBXLoader } from './three.js/examples/jsm/loaders/FBXLoader.js'
@@ -93,7 +93,7 @@ loader.load( //Load texture
             object.position.set(-0.2,0.2,0) //Place bear's nose in the center
             BearObjPointer = object;
             BearObjPointer.name = "Bear";
-
+            
         },
         (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
@@ -122,6 +122,7 @@ loader.load( //Load texture
 window.addEventListener('resize', onWindowResize, false); //Resize event
 window.addEventListener('mousemove', onMouseMove, false); //Mouse move event
 
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
@@ -148,7 +149,11 @@ function RayCasterBear(){
 
     }else{
         document.body.style.cursor = "pointer"
-        document.body.onclick = function(){window.location.href = "./shopping_cart_bear.html";}
+        document.body.onclick = function(){
+            window.location.href = "./shopping_cart_bear.html";
+            alert("Ouch, why'd you do that?")
+
+        }
     }
     //console.log(intersects[0].object.parent.name) //Prints bear
 
