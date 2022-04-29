@@ -1,3 +1,9 @@
 [submodule "three.js"]
 	path = three.js
 	url = https://github.com/mrdoob/three.js.git
+[submodule "ThreeJs"]
+	path = ThreeJs
+	url = https://github.com/jasonChen1982/three.interaction.js.git
+[submodule "three.interaction"]
+	path = three.interaction
+	url = https://github.com/jasonChen1982/three.interaction.js.git

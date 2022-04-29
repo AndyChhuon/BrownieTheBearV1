@@ -55,7 +55,11 @@ document.body.appendChild(renderer.domElement)
 const controls = new OrbitControls(camera, renderer.domElement) //Controls to allow camera to orbit around target
 controls.enableDamping = true
 controls.target.set(0, 0, 0)
+//controls.enableRotate = false;
 //controls.enabled = false;
+
+const mouse = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
 
 
 var BearObjPointer;
@@ -88,6 +92,8 @@ loader.load( //Load texture
             scene.add(object)
             object.position.set(-0.2,0.2,0) //Place bear's nose in the center
             BearObjPointer = object;
+            BearObjPointer.name = "Bear";
+
         },
         (xhr) => {
             console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
@@ -126,6 +132,25 @@ function onWindowResize() {
 function onMouseMove(event){
 
   BearObjPointer.lookAt(-((window.innerWidth/2)-event.clientX),-((window.innerHeight/2)-event.clientY),500); //Position bear according to mouse move  
+  // calculate pointer position in normalized device coordinates
+  // (-1 to +1) for both components
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+  mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+}
+
+function RayCasterBear(){
+    raycaster.setFromCamera( mouse, camera );
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    if(intersects.length == 0){ //Cursor pointer if intersects with bear
+        document.body.style.cursor = "default"
+        document.body.onclick = function(){}
+
+    }else{
+        document.body.style.cursor = "pointer"
+        document.body.onclick = function(){window.location.href = "./shopping_cart_bear.html";}
+    }
+    //console.log(intersects[0].object.parent.name) //Prints bear
 
 }
 
@@ -134,7 +159,7 @@ function animate() {
     requestAnimationFrame(animate)
 
     controls.update()
-
+    RayCasterBear()
     render()
 
 }
